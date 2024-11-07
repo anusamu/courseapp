@@ -2,6 +2,8 @@ import { Button, MenuItem, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../axiosinterceptor';
+import Nav from './Nav';
 
 const Add = () => {
     // array and function for drop down menu
@@ -37,18 +39,18 @@ const Add = () => {
       const location=useLocation()
       const sendData=()=>{
         if(location.state!=null){
-          axios.put('http://localhost:3000/course/edit/'+location.state.course._id,course)
+          axiosInstance.put('http://localhost:3000/course/edit/'+location.state.course._id,course)
           .then((res)=>{
             alert('Data updated');
-            Navigate('/')
+            Navigate('/home')
 
           }).catch((error)=>{
             console.log(error);
           })
         }
         else{
-          axios.post('http://localhost:3000/course/addCourse',course).then((res)=>{
-            Navigate('/')
+          axiosInstance.post('http://localhost:3000/course/addCourse',course).then((res)=>{
+            Navigate('/home')
           }).catch((error)=>{
             console.log(error)
           })
@@ -71,6 +73,8 @@ const Add = () => {
       },[])
 
      return (
+      <>
+      <Nav/>
       <div>
         <br />
         <h2>Add Course</h2><br />
@@ -90,6 +94,7 @@ const Add = () => {
         <TextField  id="outlined-basic" label="Course image" variant="outlined" onChange={fetchValue} name="courseImage" value={course.courseImage} /><br /><br />
         <Button variant="contained" sx={{backgroundColor:'#96D0E2',color:'white', margin:2}} onClick={sendData}>Add Course</Button>
     </div>
+    </>
   )
 }
 

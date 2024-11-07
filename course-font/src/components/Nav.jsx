@@ -5,8 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const Nav = () => {
+  const navigate=useNavigate()
+  let clearUser=()=>{
+    localStorage.removeItem("token");
+    navigate('/')
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{backgroundColor: '#86D293'}}>
@@ -24,11 +29,13 @@ const Nav = () => {
             COURSE APP
           </Typography>
           
-          <Link to={'/'} style={{color: 'white'}}><Button color="inherit" sx={{border: 1, margin: 2, '&:hover': { border: 'none', 
+          <Link to={'/home'} style={{color: 'white'}}><Button color="inherit" sx={{border: 1, margin: 2, '&:hover': { border: 'none', 
           backgroundColor: 'white', color: '#86D293'},'&:focus': {outline: 'none'}}}>Home</Button></Link>
 
         <Link to={'/add'} style={{color: 'white'}}><Button color="inherit" sx={{border: 1, '&:hover': { border: 'none', 
         backgroundColor: 'white', color: '#86D293'},'&:focus': {outline: 'none'}}}>Add</Button></Link>
+        <Button color="inherit" sx={{border: 1, '&:hover': { border: 'none', 
+        backgroundColor: 'white', color: '#86D293'},'&:focus': {outline: 'none'}}} onClick={clearUser}>logout</Button>
 
         </Toolbar>
       </AppBar>

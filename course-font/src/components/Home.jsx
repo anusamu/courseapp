@@ -9,6 +9,8 @@ import { Grid } from '@mui/material';
 import { red } from '@mui/material/colors';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../axiosinterceptor';
+import Nav from './Nav';
 
 const Home = () => {
 
@@ -58,14 +60,14 @@ const Home = () => {
     const [course,setCourse]=useState([])
     
           useEffect(()=>{
-            axios.get('http://localhost:3000/course/').then((res)=>{
+            axiosInstance.get('http://localhost:3000/course/').then((res)=>{
                 setCourse(res.data)
             })
            
           })
           
           const handleDelete = (_id) => {
-            axios.delete(`http://localhost:3000/course/delete/${_id}`)
+            axiosInstance.delete(`http://localhost:3000/course/delete/${_id}`)
                 .then((res) => {
                     
                     setCourse(course._id);
@@ -101,6 +103,8 @@ const user=localStorage.getItem("username")
     return (
         
         <>
+        <Nav/>
+        <br />
         <Grid container spacing={3} sx={{ padding: 2 }}>
             {course.map((course) => (
                 <Grid item xs={12} sm={6} md={4} key={course.courseId}>

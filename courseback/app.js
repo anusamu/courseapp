@@ -18,7 +18,10 @@ app.use(express.json());
 
 // Import and use course routes
 const courseRoutes = require('./route/courseRoute');
+const userRoutes=require('./route/user')
 app.use('/course', courseRoutes);
+
+app.use('/user',userRoutes)
 
 // Start the server
 app.listen(PORT, () => {
